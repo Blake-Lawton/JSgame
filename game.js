@@ -1,56 +1,296 @@
+PIXI.SCALE_MODES.DEFAULT = PIXI.SCALE_MODES.NEAREST;
+
 var gameport = document.getElementById("gameport");
 
-var renderer = PIXI.autoDetectRenderer(200, 200, {backgroundColor: 0x0000ff});
+var renderer = new PIXI.autoDetectRenderer({width: 400, height: 400, backgroundColor: 0x00000});
 gameport.appendChild(renderer.view);
+
 
 var stage = new PIXI.Container();
 
+
+
+
 var hero = new PIXI.Sprite(PIXI.Texture.fromImage("ArcherBlake.png"));
-var arrow = new PIXI.Sprite(PIXI.Texture.fromImage("arrow.png"));
+var arrow1 = new PIXI.Sprite(PIXI.Texture.fromImage("arrow.png"));
 var arrow2 = new PIXI.Sprite(PIXI.Texture.fromImage("arrow.png"));
 var arrow3 = new PIXI.Sprite(PIXI.Texture.fromImage("arrow.png"));
 var arrow4 = new PIXI.Sprite(PIXI.Texture.fromImage("arrow.png"));
 var arrow5 = new PIXI.Sprite(PIXI.Texture.fromImage("arrow.png"));
 var start = new PIXI.Sprite(PIXI.Texture.fromImage("Start.png"))
 var finish = new PIXI.Sprite(PIXI.Texture.fromImage("Finish.png"))
-var border = new PIXI.Sprite(PIXI.Texture.fromImage("Border.png"))
-hero.health = 100;
+var startArt = new PIXI.Sprite(PIXI.Texture.fromImage("startArt.png"));
+var startButton = new PIXI.Sprite(PIXI.Texture.fromImage("startButton.png"));
+var tutButton = new PIXI.Sprite(PIXI.Texture.fromImage("instructButton.png"));
+var credits = new PIXI.Sprite(PIXI.Texture.fromImage("credits.png"));
+var menuHero = new PIXI.Sprite(PIXI.Texture.fromImage("ArcherBlake1.png"));
+var backArrow = new PIXI.Sprite(PIXI.Texture.fromImage("backArrow.png"));
 
-start.position.x = 155;
-start.position.y = 150;
-stage.addChild(start);
 
-finish.position.x = 490;
-finish.position.y = 500;
-stage.addChild(finish);
+//-------------------Sound---------------------------
 
-border.position.x = 180;
-border.position.y = 170;
-stage.addChild(border);
+// PIXI.loader
+//   .add("8bitNoise.mp3")
+//   .load(ready);
+//
+// var sound;
+// function ready() {
+//   sound = PIXI.audioManager.getAudio("8bitNoise.mp3");
+// }
+//
+// function mouseHandler(e) {
+//   sound.play();
+// }
 
-hero.position.x = 190;
-hero.position.y = 180;
-stage.addChild(hero);
+//-------------------starting Art----------------------
+  startArt.position.x = 0;
+  startArt.position.y = 0;
+  stage.addChild(startArt);
 
-arrow.position.x = 390;
-arrow.position.y = 500;
-stage.addChild(arrow);
+  let text4 = new PIXI.Text('Archer Hero!');
+  text4.position.set(100,50);
+  stage.addChild(text4);
 
-arrow2.position.x = 500;
-arrow2.position.y = 350;
-stage.addChild(arrow2);
+  menuHero.position.set(180, 300);
+  stage.addChild(menuHero);
 
-arrow3.position.x = 350;
-arrow3.position.y = 370;
-stage.addChild(arrow3);
+//--------------------tutorial------------------------
+  tutButton.position.set(100, 200);
+  stage.addChild(tutButton);
+  tutButton.interactive = true;
+  tutButton.buttonMode = true;
+  tutButton.on('mousedown', tutorialButton);
 
-arrow4.position.x = 450;
-arrow4.position.y = 450;
-stage.addChild(arrow4);
+  function tutorialButton()
+  {
 
-arrow5.position.x = 450;
-arrow5.position.y = 400;
-stage.addChild(arrow5);
+
+    startButton.visible = false;
+    tutButton.visible = false;
+    credits.visible = false;
+
+    backArrow.visible = true;
+
+    text1.visible = true;
+    text2.visible = true;
+    text3.visible = true;
+
+    backArrow.position.set(0, 350);
+    stage.addChild(backArrow);
+    backArrow.interactive = true;
+    backArrow.buttonMode = true;
+    backArrow.on('mousedown', resetMenu);
+
+
+
+  }
+  let text1 = new PIXI.Text('* Instructions');
+  text1.position.set(0,100);
+  stage.addChild(text1);
+
+  let text2 = new PIXI.Text('* Use the W A S D keys to move');
+  text2.position.set(0,150);
+  stage.addChild(text2);
+
+  let text3 = new PIXI.Text('* Reach the checkered flag to win!');
+  text3.position.set(0,200);
+  stage.addChild(text3);
+
+  text1.visible = false;
+  text2.visible = false;
+  text3.visible = false;
+
+  //-----------------Credits---------------------------
+  credits.position.set(100, 300);
+  stage.addChild(credits);
+  credits.interactive = true;
+  credits.buttonMode = true;
+  credits.on('mousedown', creditButton);
+
+  function creditButton()
+  {
+
+
+    startButton.visible = false;
+    tutButton.visible = false;
+    credits.visible = false;
+
+    backArrow.visible = true;
+
+    text5.visible = true;
+
+    backArrow.position.set(0, 350);
+    stage.addChild(backArrow);
+    backArrow.interactive = true;
+    backArrow.buttonMode = true;
+    backArrow.on('mousedown', resetMenu);
+
+
+  }
+
+  let text5 = new PIXI.Text('Everything done by: Blake Lawton');
+  text5.position.set(0, 200);
+  stage.addChild(text5);
+
+  text5.visible = false;
+
+//-----------------start button---------------------------
+  startButton.position.set(100, 100);
+  stage.addChild(startButton);
+  startButton.interactive = true;
+  startButton.buttonMode = true;
+  startButton.on('mousedown', startGame);
+  // startButton.on('mousedown', mouseHandler);
+
+  function startGame()
+  {
+
+    startArt.visible = false;
+    startButton.visible = false;
+    tutButton.visible = false;
+    credits.visible = false;
+    menuHero.visible = false;
+
+    start.position.x = -20;
+    start.position.y = -20;
+    stage.addChild(start);
+
+    finish.position.x = 310;
+    finish.position.y = 330;
+
+    stage.addChild(finish);
+
+    hero.position.x = 20;
+    hero.position.y = 10;
+    stage.addChild(hero);
+
+    arrow1.position.x = 100;
+    arrow1.position.y = 100;
+    stage.addChild(arrow1);
+
+    arrow2.position.x = 280;
+    arrow2.position.y = 300;
+    stage.addChild(arrow2);
+
+    arrow3.position.x = 0;
+    arrow3.position.y = 260;
+    stage.addChild(arrow3);
+
+    arrow4.position.x = 340;
+    arrow4.position.y = 310;
+    stage.addChild(arrow4);
+
+    arrow5.position.x = 250;
+    arrow5.position.y = 330;
+    stage.addChild(arrow5);
+
+
+
+  }
+
+function resetMenu()
+{
+  startButton.visible = true;
+  tutButton.visible = true;
+  credits.visible = true;
+  menuHero.visible = true;
+  text1.visible = false;
+  text2.visible = false;
+  text3.visible = false;
+  text5.visible = false;
+  backArrow.visible = false;
+
+  tutButton.position.set(100, 200);
+  stage.addChild(tutButton);
+  tutButton.interactive = true;
+  tutButton.buttonMode = true;
+  tutButton.on('mousedown', tutorial);
+
+  credits.position.set(100, 300);
+  stage.addChild(credits);
+
+  menuHero.position.set(180, 300);
+  stage.addChild(menuHero);
+
+  let text = new PIXI.Text('Archer Hero!');
+  text.position.set(100,50);
+  stage.addChild(text);
+
+  startButton.position.set(100, 100);
+  stage.addChild(startButton);
+  startButton.interactive = true;
+  startButton.buttonMode = true;
+  startButton.on('mousedown', startGame);
+}
+
+//------------Collision----------------
+
+
+
+
+
+
+
+
+
+
+//-----------end Game Screen-------------
+let text6 = new PIXI.Text('Congrats! You won!');
+text6.position.set(0, 200);
+stage.addChild(text6);
+text6.visible = false;
+
+function endGame()
+{
+  text4.visble = false;
+  startArt.visible = true;
+  finish.visible = false;
+  start.visible = false;
+  arrow1.visible = false;
+  arrow2.visible = false;
+  arrow3.visible = false;
+  arrow4.visible = false;
+  arrow5.visible = false;
+  hero.visible= false;
+  menuHero.visible= true;
+
+  text6.visible = true;
+
+}
+
+
+
+// PIXI.loader
+//   .add("assets.json")
+//   .load(endScreen);
+//
+//   function endScreen()
+//   {
+//     var heroRight = new PIXI.Sprite(PIXI.Texture.fromFrame("ArcherBlake2.png"));
+//     var heroLeft = new PIXI.Sprite(PIXI.Texture.fromFrame("ArcherBlake3.png"));
+//     var heroUp = new PIXI.Sprite(PIXI.Texture.fromFrame("ArcherBlake4.png"));
+//     var heroDown = new PIXI.Sprite(PIXI.Texture.fromFrame("ArcherBlake1.png"));
+//   }
+
+
+
+
+
+
+function left() {
+  createjs.Tween.get(arrow3.position).to({x: 200}, 4000, createjs.Ease.cubicOut).call(right);
+
+}
+
+function right() {
+  createjs.Tween.get(arrow3.position).to({x: 350}, 4000, createjs.Ease.cubicInOut).call(left);
+}
+
+right();
+
+
+
+
 
 function keydownEventHandler(e) {
 
@@ -74,16 +314,23 @@ function keydownEventHandler(e) {
 document.addEventListener('keydown', keydownEventHandler);
 
 
+
+
 function animate() {
+  arrow1.rotation -=.05;
+  arrow2.rotation -=.05;
+  arrow4.rotation -=.05;
+  arrow5.rotation -=.05;
+
+  if(hero.position.x >= 330 && hero.position.y >= 330  )
+  {
+    endGame();
+  }
+
   requestAnimationFrame(animate);
 
-
-  arrow.rotation += .05;
-  arrow2.rotation += .05;
-  arrow3.rotation += .05;
-  arrow4.rotation += .05;
-  arrow5.rotation += .05;
-
   renderer.render(stage);
+
+
 }
 animate();

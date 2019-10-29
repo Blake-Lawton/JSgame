@@ -25,6 +25,7 @@ var tutButton = new PIXI.Sprite(PIXI.Texture.fromImage("instructButton.png"));
 var credits = new PIXI.Sprite(PIXI.Texture.fromImage("credits.png"));
 var menuHero = new PIXI.Sprite(PIXI.Texture.fromImage("ArcherBlake1.png"));
 var backArrow = new PIXI.Sprite(PIXI.Texture.fromImage("backArrow.png"));
+var map = new PIXI.Sprite(PIXI.Texture.fromImage("mainMap.png"));
 
 
 //-------------------Sound---------------------------
@@ -74,6 +75,7 @@ var backArrow = new PIXI.Sprite(PIXI.Texture.fromImage("backArrow.png"));
     text1.visible = true;
     text2.visible = true;
     text3.visible = true;
+    text7.visible = true;
 
     backArrow.position.set(0, 350);
     stage.addChild(backArrow);
@@ -85,20 +87,25 @@ var backArrow = new PIXI.Sprite(PIXI.Texture.fromImage("backArrow.png"));
 
   }
   let text1 = new PIXI.Text('* Instructions');
-  text1.position.set(0,100);
+  text1.position.set(0,90);
   stage.addChild(text1);
 
   let text2 = new PIXI.Text('* Use the W A S D keys to move');
-  text2.position.set(0,150);
+  text2.position.set(0,140);
   stage.addChild(text2);
 
   let text3 = new PIXI.Text('* Reach the checkered flag to win!');
-  text3.position.set(0,200);
+  text3.position.set(0,245);
   stage.addChild(text3);
+
+  let text7 = new PIXI.Text('* Dont touch the lava, torches, or \n   water');
+  text7.position.set(0,190);
+  stage.addChild(text7);
 
   text1.visible = false;
   text2.visible = false;
   text3.visible = false;
+  text7.visible = false;
 
   //-----------------Credits---------------------------
   credits.position.set(100, 300);
@@ -142,9 +149,14 @@ var backArrow = new PIXI.Sprite(PIXI.Texture.fromImage("backArrow.png"));
   startButton.on('mousedown', startGame);
   // startButton.on('mousedown', mouseHandler);
 
+  map.position.x = 0;
+  map.position.y = 0;
+  stage.addChild(map)
+  map.visible = false;
+
   function startGame()
   {
-
+    map.visible = true;
     startArt.visible = false;
     startButton.visible = false;
     tutButton.visible = false;
@@ -155,8 +167,8 @@ var backArrow = new PIXI.Sprite(PIXI.Texture.fromImage("backArrow.png"));
     start.position.y = -20;
     stage.addChild(start);
 
-    finish.position.x = 310;
-    finish.position.y = 330;
+    finish.position.x = 700;
+    finish.position.y = 720;
 
     stage.addChild(finish);
 
@@ -164,24 +176,25 @@ var backArrow = new PIXI.Sprite(PIXI.Texture.fromImage("backArrow.png"));
     hero.position.y = 10;
     stage.addChild(hero);
 
-    arrow1.position.x = 100;
+    arrow1.position.x = 300;
     arrow1.position.y = 100;
     stage.addChild(arrow1);
 
-    arrow2.position.x = 280;
+    arrow2.position.x = 680;
     arrow2.position.y = 300;
     stage.addChild(arrow2);
 
-    arrow3.position.x = 0;
-    arrow3.position.y = 260;
+    arrow3.position.x = 720;
+    arrow3.position.y = 300;
     stage.addChild(arrow3);
+    arrow3.visible = false;
 
-    arrow4.position.x = 340;
-    arrow4.position.y = 310;
+    arrow4.position.x = 750;
+    arrow4.position.y = 300;
     stage.addChild(arrow4);
 
-    arrow5.position.x = 250;
-    arrow5.position.y = 330;
+    arrow5.position.x = 180;
+    arrow5.position.y = 540;
     stage.addChild(arrow5);
 
 
@@ -198,6 +211,7 @@ function resetMenu()
   text2.visible = false;
   text3.visible = false;
   text5.visible = false;
+  text7.visible = false;
   backArrow.visible = false;
 
   tutButton.position.set(100, 200);
@@ -242,7 +256,8 @@ text6.visible = false;
 
 function endGame()
 {
-  text4.visble = false;
+  map.visible = false;
+  text4.visible = false;
   startArt.visible = true;
   finish.visible = false;
   start.visible = false;
@@ -296,18 +311,50 @@ function keydownEventHandler(e) {
 
   if (e.keyCode == 87) { // W key
     hero.position.y -= 10;
+    arrow1.position.y += 12;
+    arrow2.position.y += 12;
+
+    arrow4.position.y += 12;
+    arrow5.position.y += 12;
+    start.position.y +=12;
+    finish.position.y += 12;
+    map.position.y += 12;
   }
 
   if (e.keyCode == 83) { // S key
     hero.position.y += 10;
+    arrow1.position.y -= 12;
+    arrow2.position.y -= 12;
+
+    arrow4.position.y -= 12;
+    arrow5.position.y -= 12;
+    start.position.y -=12;
+    finish.position.y -= 12;
+    map.position.y -=12;
   }
 
   if (e.keyCode == 65) { // A key
     hero.position.x -= 10;
+    arrow1.position.x += 12;
+    arrow2.position.x += 12;
+
+    arrow4.position.x += 12;
+    arrow5.position.x += 12;
+    start.position.x +=12;
+    finish.position.x += 12;
+    map.position.x += 12;
   }
 
   if (e.keyCode == 68) { // D key
     hero.position.x += 10;
+    arrow1.position.x -= 12;
+    arrow2.position.x -= 12;
+
+    arrow4.position.x -= 12;
+    arrow5.position.x -= 12;
+    start.position.x -=12;
+    finish.position.x -= 12;
+    map.position.x -= 12;
   }
 }
 

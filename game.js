@@ -1,5 +1,6 @@
 PIXI.SCALE_MODES.DEFAULT = PIXI.SCALE_MODES.NEAREST;
 
+
 var gameport = document.getElementById("gameport");
 
 var renderer = new PIXI.autoDetectRenderer({width: 400, height: 400, backgroundColor: 0x00000});
@@ -29,7 +30,10 @@ var map = new PIXI.Sprite(PIXI.Texture.fromImage("mainMap.png"));
 
 
 //-------------------Sound---------------------------
-
+var bgMusic = PIXI.sound.Sound.from({
+url: 'Background_Sound.mp3',
+loop: true
+});
 // PIXI.loader
 //   .add("8bitNoise.mp3")
 //   .load(ready);
@@ -154,14 +158,26 @@ var map = new PIXI.Sprite(PIXI.Texture.fromImage("mainMap.png"));
   stage.addChild(map)
   map.visible = false;
 
+
+  //PIXI.sound.add('bgMusic', 'Background_Sound.mp3');
+
+
   function startGame()
   {
+
+
+
     map.visible = true;
     startArt.visible = false;
     startButton.visible = false;
     tutButton.visible = false;
     credits.visible = false;
     menuHero.visible = false;
+
+    if(map.visable = true)
+    {
+      bgMusic.play();
+    }
 
     start.position.x = -20;
     start.position.y = -20;
